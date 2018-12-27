@@ -25,15 +25,14 @@ class Webhook extends CI_Controller {
         $owner_id = $this->input->post('ownerId');
         $owner_name = $this->input->post('ownerName');
         $callback_url = $this->input->post('callback_url');
-        $text = 'Owner ID: '. $owner_id . ' - Name: '. $owner_name;
+        $callback_endpoint = $this->input->post('endpoint');
+        $text = 'Owner ID: '. $owner_id . ' - Name: '. (is_array($owner_name) ? implode(' ', $owner_name) : $owner_name);
+        
         
         if ($owner_id) {
             $options = [
                 'http_errors' => true,
-                'json' => ['text' => $text],
-                'headers' => [
-                    'Content-Type' => 'application/json'
-                  ]
+                'json' => ['text' => $text]
               ];
     
             $mmc_hook_client = new \GuzzleHttp\Client([
@@ -41,7 +40,7 @@ class Webhook extends CI_Controller {
                 'timeout'  => 0,
             ]);
     
-            $response = $mmc_hook_client->request('POST', '/zoho_crm_callback', $options);
+            $response = $mmc_hook_client->request('POST', $callback_endpoint, $options);
             header ('Content-Type:application/json');
             echo $response->getBody();
         }
@@ -52,7 +51,7 @@ class Webhook extends CI_Controller {
         $stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
         $request = json_decode($stream_clean);
         header ('Content-Type:application/json');
-        $data = json_encode($request);
+        $data = json_encode($request, JSON_UNESCAPED_UNICODE);
         error_log($data . "\n", 3, './hook.log');
         echo $data;
     }
