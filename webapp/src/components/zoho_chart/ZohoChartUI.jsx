@@ -1,32 +1,25 @@
-// import React from "react";
-
+import React from 'react';
 import {Chart} from 'react-charts';
 
-const lineChart = (
-    <div style={{width: '400px', height: '300px'}}>
-        <Chart
-            data={[
-                {
-                    label: 'Series 1',
-                    data: [[0, 1], [1, 2], [2, 4], [3, 2], [4, 7]],
-                },
-                {
-                    label: 'Series 2',
-                    data: [[0, 3], [1, 1], [2, 5], [3, 6]],
-                },
-            ]}
-            axes={[
-                {primary: true, type: 'linear', position: 'bottom'},
-                {type: 'linear', position: 'left'},
-            ]}
-        />
-    </div>
-);
+import ChartConfig from '../ChartConfig';
+
 const ZohoChartUI = () => {
     return (
-        <div>
-            {lineChart}
-        </div>
+        <ChartConfig dataType='ordinal'>
+            {({data}) => (
+                <Chart
+                    data={data}
+                    series={{type: 'bar'}}
+                    axes={[
+                        {primary: true, type: 'ordinal', position: 'bottom'},
+                        {position: 'left', type: 'linear', stacked: true},
+                    ]}
+                    primaryCursor={true}
+                    secondaryCursor={true}
+                    tooltip={true}
+                />
+            )}
+        </ChartConfig>
     );
 };
 
