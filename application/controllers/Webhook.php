@@ -26,13 +26,14 @@ class Webhook extends CI_Controller {
         $owner_name = $this->input->post('ownerName');
         $callback_url = $this->input->post('callback_url');
         $text = 'Owner ID: '. $owner_id . ' - Name: '. $owner_name;
-        //$message = json_encode(['text' => $text]);
         
         if ($owner_id) {
             $options = [
                 'http_errors' => true,
                 'json' => ['text' => $text]
               ];
+
+              var_dump($options);
     
             $mmc_hook_client = new \GuzzleHttp\Client([
                 'base_uri' => $callback_url,
@@ -48,7 +49,7 @@ class Webhook extends CI_Controller {
     public function zoho_crm_callback() 
     {
         header ('Content-Type:application/json');
-        $text = $this->input->post('text');
-        echo json_encode(['data' => $text]);
+        //$text = $this->input->all();
+        echo json_encode(['data' => $this->input->post('text')]);
     }
 }
