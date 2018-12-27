@@ -30,7 +30,7 @@ class Webhook extends CI_Controller {
         if ($owner_id) {
             $options = [
                 'http_errors' => true,
-                'json' => ['text' => $text],
+                'payload' => ['text' => $text],
                 'headers' => [
                     'Content-Type' => 'application/json'
                   ]
@@ -49,7 +49,11 @@ class Webhook extends CI_Controller {
     
     public function zoho_crm_callback() 
     {
+        $stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
+        $request = json_decode($stream_clean);
         header ('Content-Type:application/json');
-        echo json_encode(['data' => $this->input->post()]);
+        $data = json_encode(['data' => $request]);
+        error_log($data . "\n", 3, './hook.log');
+        echo $data;
     }
 }
