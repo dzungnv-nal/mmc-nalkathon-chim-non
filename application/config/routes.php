@@ -59,3 +59,4 @@ $route['zoho_get_lead_by_id'] = 'zoho/getrecord';
 $route['zoho_insert_lead'] = 'zoho/insertLead';
 
 $route['zoho_crm_hook'] = 'webhook/zoho_crm_hook';
+$route['zoho_crm_callback'] = 'webhook/zoho_crm_callback';

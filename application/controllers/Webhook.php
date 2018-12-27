@@ -36,12 +36,18 @@ class Webhook extends CI_Controller {
     
             $mmc_hook_client = new \GuzzleHttp\Client([
                 'base_uri' => $callback_url,
-                'timeout'  => 2.0,
+                'timeout'  => 0,
             ]);
     
             $response = $mmc_hook_client->request('POST', '', $options);
             header ('Content-Type:application/json');
             echo json_encode($response->getBody());
         }
-	}
+    }
+    
+    public function zoho_crm_callback() 
+    {
+        header ('Content-Type:application/json');
+        echo $owner_id = $this->input->post('text');
+    }
 }
