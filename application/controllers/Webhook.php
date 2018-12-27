@@ -48,6 +48,6 @@ class Webhook extends CI_Controller {
     public function zoho_crm_callback() 
     {
         header ('Content-Type:application/json');
-        echo $owner_id = $this->input->post('text');
+        echo $this->input->post('text');
     }
 }
