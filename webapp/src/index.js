@@ -6,7 +6,7 @@ import {ChartIcon} from './scss/icon';
 export default class Plugin {
     // eslint-disable-next-line no-unused-vars
     initialize(registry, store) {
-        registry.registerExtensionPanelComponent(ChartIcon, 'Todolist', ZohoChart);
+        registry.registerExtensionPanelComponent(ChartIcon, 'Zoho Chart', ZohoChart);
     }
 }
 
