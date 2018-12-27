@@ -30,7 +30,7 @@ class Webhook extends CI_Controller {
         if ($owner_id) {
             $options = [
                 'http_errors' => true,
-                'payload' => ['text' => $text],
+                'json' => ['text' => $text],
                 'headers' => [
                     'Content-Type' => 'application/json'
                   ]
@@ -52,7 +52,7 @@ class Webhook extends CI_Controller {
         $stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
         $request = json_decode($stream_clean);
         header ('Content-Type:application/json');
-        $data = json_encode(['data' => $request]);
+        $data = json_encode($request);
         error_log($data . "\n", 3, './hook.log');
         echo $data;
     }
