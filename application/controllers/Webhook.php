@@ -30,7 +30,10 @@ class Webhook extends CI_Controller {
         if ($owner_id) {
             $options = [
                 'http_errors' => true,
-                'json' => ['text' => $text]
+                'json' => ['text' => $text],
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                  ]
               ];
     
             $mmc_hook_client = new \GuzzleHttp\Client([
