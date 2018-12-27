@@ -26,12 +26,12 @@ class Webhook extends CI_Controller {
         $owner_name = $this->input->post('ownerName');
         $callback_url = $this->input->post('callback_url');
         $text = 'Owner ID: '. $owner_id . ' - Name: '. $owner_name;
-        $message = json_encode(['text' => $text]);
+        //$message = json_encode(['text' => $text]);
         
         if ($owner_id) {
             $options = [
                 'http_errors' => true,
-                'json' => $message
+                'json' => ['text' => $text]
               ];
     
             $mmc_hook_client = new \GuzzleHttp\Client([
