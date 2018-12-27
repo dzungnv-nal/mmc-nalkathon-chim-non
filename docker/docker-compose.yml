@@ -1,0 +1,7 @@
+webapp:
+  build: .
+  volumes:
+    - ../:/apps/webhook
+  working_dir: /apps/webhook
+  ports:
+    - 83:80
