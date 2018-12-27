@@ -32,8 +32,6 @@ class Webhook extends CI_Controller {
                 'http_errors' => true,
                 'json' => ['text' => $text]
               ];
-
-              var_dump($options);
     
             $mmc_hook_client = new \GuzzleHttp\Client([
                 'base_uri' => $callback_url,
@@ -49,7 +47,6 @@ class Webhook extends CI_Controller {
     public function zoho_crm_callback() 
     {
         header ('Content-Type:application/json');
-        //$text = $this->input->all();
-        echo json_encode(['data' => $this->input->post('text')]);
+        echo json_encode(['data' => $this->input->post()]);
     }
 }
