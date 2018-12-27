@@ -29,19 +29,20 @@ class Webhook extends CI_Controller {
         $message = json_encode(['text' => $text]);
         
         if ($owner_id) {
-            $options = [
-                'http_errors' => true,
-                'json' => $message
-              ];
+            echo $message;
+            // $options = [
+            //     'http_errors' => true,
+            //     'json' => $message
+            //   ];
     
-            $mmc_hook_client = new \GuzzleHttp\Client([
-                'base_uri' => $callback_url,
-                'timeout'  => 2.0,
-            ]);
+            // $mmc_hook_client = new \GuzzleHttp\Client([
+            //     'base_uri' => $callback_url,
+            //     'timeout'  => 2.0,
+            // ]);
     
-            $response = $mmc_hook_client->request('POST', '', $options);
-            header ('Content-Type:application/json');
-            echo json_encode($response->getBody());
+            // $response = $mmc_hook_client->request('POST', '', $options);
+            // header ('Content-Type:application/json');
+            // echo json_encode($response->getBody());
         }
 	}
 }
