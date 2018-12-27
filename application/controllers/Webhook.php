@@ -39,7 +39,7 @@ class Webhook extends CI_Controller {
                 'timeout'  => 0,
             ]);
     
-            $response = $mmc_hook_client->request('POST', '', $options);
+            $response = $mmc_hook_client->request('POST', '/zoho_crm_callback', $options);
             header ('Content-Type:application/json');
             echo $response->getBody();
         }
