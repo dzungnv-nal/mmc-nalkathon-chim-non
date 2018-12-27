@@ -41,13 +41,14 @@ class Webhook extends CI_Controller {
     
             $response = $mmc_hook_client->request('POST', '', $options);
             header ('Content-Type:application/json');
-            echo json_encode($response->getBody());
+            echo $response->getBody();
         }
     }
     
     public function zoho_crm_callback() 
     {
         header ('Content-Type:application/json');
-        echo $this->input->post('text');
+        $text = $this->input->post('text');
+        echo json_encode(['data' => $text]);
     }
 }
