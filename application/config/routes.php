@@ -60,3 +60,5 @@ $route['zoho_insert_lead'] = 'zoho/insertLead';
 
 $route['zoho_crm_hook'] = 'webhook/zoho_crm_hook';
 $route['zoho_crm_callback'] = 'webhook/zoho_crm_callback';
+
+$route['zoho_report'] = 'webhook/zoho_report';
