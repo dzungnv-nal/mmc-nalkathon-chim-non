@@ -1,5 +1,5 @@
 {
-    "id": "com.mattermost.zoho-plugin",
+    "id": "zoho-plugin",
     "name": "Zoho CRM Plugin ",
     "description": "This plugin show today's Leads of Zoho CRM.",
     "version": "0.0.1",
@@ -16,6 +16,32 @@
     "settings_schema": {
         "header": "",
         "footer": "",
-        "settings": []
+        "settings": [
+            {
+                "key": "ApiURL",
+                "display_name": "API URL",
+                "type": "text",
+                "help_text": "API URL for Zoho CRM Plugin ",
+                "placeholder": "http://dev.enci.edu.vn",
+                "default": "http://dev.enci.edu.vn"
+            },
+            {
+                "key": "ChartType",
+                "display_name": "Chart Type",
+                "type": "dropdown",
+                "help_text": "Chart Type for Display in Extension Panel",
+                "default": "Column Chart",
+                "options": [{
+                    "display_name": "Column Chart",
+                    "value": "Column_Chart"
+                }, {
+                    "display_name": "Line Chart",
+                    "value": "Line_Chart"
+                }, {
+                    "display_name": "Mixed Types",
+                    "value": "Mixed_Types"
+                }]
+            }
+        ]
     }
 }

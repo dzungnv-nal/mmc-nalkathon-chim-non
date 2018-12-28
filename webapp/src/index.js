@@ -78,6 +78,9 @@ export default class Plugin {
     initialize(registry, store) {
         registry.registerExtensionPanelComponent(ChartIcon, 'Zoho Chart', hot(module)(ZohoChartComponent));
     }
+    uninitialize() {
+      // No clean up required.
+  }
 }
 
 window.registerPlugin(pluginId, new Plugin());
