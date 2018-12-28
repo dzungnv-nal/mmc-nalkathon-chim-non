@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 
 import {id as PluginId} from '../../manifest';
@@ -10,18 +11,21 @@ class ZohoChart extends React.Component {
     constructor(props) {
         super(props);
         this.chartType = '';
+        this.getConfigSeting();
     }
     shouldComponentUpdate() {
         return true;
     }
-    async componentDidMount() {
+    async getConfigSeting() {
         const response = await fetch(`${PLUGIN_API}/${PluginId}/get-configs`);
         const json = await response.json();
         this.chartType = json.ChartType;
+        this.forceUpdate();
+        console.log(this.chartType);
     }
     render() {
         return (
-            <ZohoChartUI/>
+            <ZohoChartUI chartType={this.chartType}/>
         );
     }
 }
