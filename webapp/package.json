@@ -35,6 +35,9 @@
     "react-resizable": "^1.7.5",
     "react-emotion": "^9.2.12",
     "react-hot-loader": "^4.3.12",
-    "emotion": "^9.2.12"
+    "emotion": "^9.2.12",
+    "mobx": "^4.2.0",
+    "mobx-react": "^5.1.2",
+    "prop-types": "^15.6.2"
   }
 }

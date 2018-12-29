@@ -9,7 +9,8 @@ import styled, {injectGlobal} from 'react-emotion';
 
 import 'react-resizable/css/styles.css';
 // import './scss/styles.css';
-
+import Store from './stores/storeData'
+const appStore = new Store();
 
 injectGlobal`
   @import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
@@ -68,7 +69,7 @@ const AppStyles = styled('div')`
 const ZohoChartComponent = () =>{
     return (
         <AppStyles>
-            <ZohoChart />
+            <ZohoChart store = {appStore}/>
         </AppStyles>
     )
 }
