@@ -1,9 +1,9 @@
 <?php
 namespace Helper\Zoho;
 
-if (!defined('ZOHO_APP_REFRESH_CODE')) define('ZOHO_APP_REFRESH_CODE', '1000.79d14d8ab6ca250fa2d222ab10995a7d.a8ee5718937e9a6dca918f3aa63be949');
-if (!defined('ZOHO_APP_CLIENT_ID')) define('ZOHO_APP_CLIENT_ID', '1000.A6WRD8GD1RQI14324L0PSMKXY88TRU');
-if (!defined('ZOHO_APP_CLIENT_SECRET')) define('ZOHO_APP_CLIENT_SECRET', '0fb497a88dae0583b1177f03b669d104a70ba6a414');
+if (!defined('ZOHO_APP_REFRESH_CODE')) define('ZOHO_APP_REFRESH_CODE', '1000.ab7f6b70ff072bc8067c1dfd71f4cdc1.55ab61859e069620551a63f92af6178d');
+if (!defined('ZOHO_APP_CLIENT_ID')) define('ZOHO_APP_CLIENT_ID', '1000.03E56M4HRH9U7334278W6LL074RLQU');
+if (!defined('ZOHO_APP_CLIENT_SECRET')) define('ZOHO_APP_CLIENT_SECRET', '3235e680e76668acda457e6a2cd3455dbfe86118c0');
 
 
 class ZohoCrmConnect {
@@ -106,36 +106,62 @@ class ZohoCrmConnect {
     }    
   }
 
-  public function search($module, $field, $value) {
-    $records = [];
-    if ($module !== '' && $id !== '') {
-      $uri = '/crm/v2/'.$module.'/search';
-      $access_token = $this->getAccessToken();
+  public function search($module, $field = '', $value = '', $criteria = '')
+    {
+        $page_limit = 0;
+        try {
+            $records = [];
+            if ($module !== '') {
+                $uri = '/crm/v2/' . $module . '/search?page=%d&per_page=%d';
+                $uri .= $criteria != '' ? '&criteria=' . $criteria : '';
+                $uri .= $field != '' ? '&' . $field . '=' . $value : '';
 
-      $options = [
-        'http_errors' => true,
-        'query' => [
-          $field => $value
-        ],
-        'headers' => [
-          'Authorization' => 'Zoho-oauthtoken '. $access_token->access_token
-        ]
-      ];
+                $access_token = $this->getAccessToken();
+                if ($access_token == false || !is_object($access_token) || !property_exists($access_token, 'access_token')) {
+                    return false;
+                }
 
-      $response = $this->zoho_crm_client->request('GET', $uri, $options);
-      if ($response->getStatusCode() == 200) {
-        $data = json_decode($response->getBody());
-        $records = $data->data;
-        return $records;
-      }
-      else {
-        return false;
-      }
+                $options = [
+                    'http_errors' => true,
+                    'headers' => [
+                        'Authorization' => 'Zoho-oauthtoken ' . $access_token->access_token,
+                        'Content-Type' => 'application/json',
+                    ],
+                ];
+
+                $rec_per_page = 200;
+                $page = 1;
+                $record_count = $rec_per_page;
+
+                while ($record_count <= $rec_per_page && $record_count > 0) {
+
+                    $endpoint = sprintf($uri, $page, $rec_per_page);
+                    $response = $this->zoho_crm_client->request('GET', $endpoint, $options);
+
+                    if ($response->getStatusCode() == 200) {
+                        $data = json_decode($response->getBody());
+                        $record_count = isset($data->data) ? count($data->data) : 0;
+                        $records = $record_count > 0 ? array_merge($records, $data->data) : $records;
+                        usleep(5000);
+                    } else if ($response->getStatusCode() == 204) {
+                        break;
+                    } else {
+                        return false;
+                    }
+
+                    $page++;
+                    if ($page_limit > 0 && $page >= $page_limit) {
+                        break;
+                    }
+                }
+                return $records;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            return false;
+        }
     }
-    else {
-      return false;
-    }   
-  }
 
   public function searchRecordByEmail($module, $email) {
     return $this->search($module,'email', $email);   

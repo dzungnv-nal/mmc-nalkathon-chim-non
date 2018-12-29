@@ -62,3 +62,7 @@ $route['zoho_crm_hook'] = 'webhook/zoho_crm_hook';
 $route['zoho_crm_callback'] = 'webhook/zoho_crm_callback';
 
 $route['zoho_report'] = 'webhook/zoho_report';
+$route['put_json'] = 'webhook/put_json';
+$route['get_json'] = 'webhook/get_json';
+
+$route['get_leads'] = 'webhook/get_lead';
