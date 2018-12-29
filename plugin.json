@@ -22,8 +22,8 @@
                 "display_name": "API URL",
                 "type": "text",
                 "help_text": "API URL for Zoho CRM Plugin ",
-                "placeholder": "http://dev.enci.edu.vn",
-                "default": "http://dev.enci.edu.vn"
+                "placeholder": "http://dev.enci.edu.vn/zoho_report",
+                "default": "http://dev.enci.edu.vn/zoho_report"
             },
             {
                 "key": "ChartType",

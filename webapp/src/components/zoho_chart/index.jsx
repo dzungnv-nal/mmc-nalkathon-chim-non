@@ -20,11 +20,20 @@ class ZohoChart extends React.Component {
         const json = await response.json();
         this.props.store.pushJSettingConfig(json);
     }
+    async getDataChart (){
+        console.log('Refresh');
+        const response = await fetch(this.props.store.settingConfig.ApiURL);
+        const json = await response.json();
+        this.props.store.dataChart(json);
+    }
+    handleOnRefresh = () =>{
+        this.getDataChart();
+    }
     render() {
         let settingConfig = this.props.store.settingConfig;
         let chartType = settingConfig === {} ? {}:settingConfig.ChartType
         return (
-            <ZohoChartUI chartType={chartType} dataJson = {this.props.store.dataChart}/>
+            <ZohoChartUI chartType={chartType} dataJson = {this.props.store.dataChart} onRefresh = {this.handleOnRefresh}/>
         );
     }
 }

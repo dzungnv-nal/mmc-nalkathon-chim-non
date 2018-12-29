@@ -36,7 +36,7 @@ const ZohoChartUI = (props) => {
                 <div>
                     <h1 style={{color: '#e4167b'}} > Báo cáo dự án Khách hàng </h1>
                 </div>
-                <ChartConfig dataType='ordinal' dataJson={props.dataJson}>
+                <ChartConfig dataType='ordinal' dataJson={props.dataJson} onRefresh = {props.onRefresh}>
                     {({ data }) => (
                         <Chart
                             data={data}

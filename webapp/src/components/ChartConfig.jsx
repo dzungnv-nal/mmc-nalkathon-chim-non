@@ -55,7 +55,8 @@ export default class ChartConfig extends React.Component {
       groupMode: 'primary',
       snapCursor: true,
       datums: 10,
-      dataJson: []
+      dataJson: [],
+      onRefresh: () =>{}
   };
   constructor(props) {
       super(props);
@@ -79,7 +80,8 @@ export default class ChartConfig extends React.Component {
           height,
           canRandomize,
           style,
-          className
+          className,
+          onRefresh
       } = this.props;
 
       const randomizeData = () =>
@@ -116,7 +118,7 @@ export default class ChartConfig extends React.Component {
 
         {canRandomize && (
           <div>
-            <button onClick={randomizeData}>Refresh</button>
+            <button onClick={onRefresh}>Refresh</button>
 
             <br />
             <br />
