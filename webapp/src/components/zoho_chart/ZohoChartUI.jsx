@@ -29,19 +29,27 @@ const ZohoChartUI = (props) => {
     default:
         break;
     }
+    console.log('props.dataJson' ,props.dataJson)
     return (
-        <ChartConfig dataType='ordinal'>
-            {({data}) => (
-                <Chart
-                    data={data}
-                    series={seriesType}
-                    axes={axes}
-                    primaryCursor={true}
-                    secondaryCursor={true}
-                    tooltip={true}
-                />
-            )}
-        </ChartConfig>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div>
+                <div>
+                    <h1 style={{color: '#e4167b'}} > Báo cáo dự án Khách hàng </h1>
+                </div>
+                <ChartConfig dataType='ordinal' dataJson={props.dataJson}>
+                    {({ data }) => (
+                        <Chart
+                            data={data}
+                            series={seriesType}
+                            axes={axes}
+                            primaryCursor={true}
+                            secondaryCursor={true}
+                            tooltip={true}
+                        />
+                    )}
+                </ChartConfig>
+            </div>
+        </div>
     );
 };
 

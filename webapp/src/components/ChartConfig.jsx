@@ -55,6 +55,7 @@ export default class ChartConfig extends React.Component {
       groupMode: 'primary',
       snapCursor: true,
       datums: 10,
+      dataJson: []
   };
   constructor(props) {
       super(props);
@@ -65,7 +66,8 @@ export default class ChartConfig extends React.Component {
   }
   makeData = () => {
       const {dataType, series, useR, datums} = this.props;
-      return makeData(dataType, series, useR, datums);
+      // return makeData(dataType, series, useR, datums);
+      return this.props.dataJson;
   };
   render() {
       const {
@@ -114,7 +116,7 @@ export default class ChartConfig extends React.Component {
 
         {canRandomize && (
           <div>
-            <button onClick={randomizeData}>Randomize Data</button>
+            <button onClick={randomizeData}>Refresh</button>
 
             <br />
             <br />
@@ -155,9 +157,10 @@ export default class ChartConfig extends React.Component {
 }
 
 function makeData(dataType, series, useR, datums) {
-  return [
-    ...new Array(series || Math.max(Math.round(Math.random() * 5), 1))
-  ].map((d, i) => makeSeries(i, dataType, useR, datums));
+  // return [
+  //   ...new Array(series || Math.max(Math.round(Math.random() * 5), 1))
+  // ].map((d, i) => makeSeries(i, dataType, useR, datums));
+  return dataJson;
 }
 
 function makeSeries(i, dataType, useR, datums) {
